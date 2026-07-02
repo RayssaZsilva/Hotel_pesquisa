@@ -1,0 +1,16 @@
+article {
+    border: 1px solid #ccc;
+    border-radius: 18px;
+    width: 300px;
+    margin: 20px auto;
+    padding: 16px;
+    
+}
+
+article img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    
+
+}
