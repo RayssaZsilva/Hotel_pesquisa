@@ -1,87 +1,67 @@
+import { useEffect, useState } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import HotelCard from "../../components/hotel/HotelCard";
-import hotel1 from "../../assets/img/hotel1.jpg";
-import hotel2 from "../../assets/img/hotel2.jpg";
+import { buscarHoteis } from "../../services/hotelService";
 import "./Home.css";
-import "../../components/layout/header.css"
 
+function Home() {
+  const [hotels, setHotels] = useState<any[]>([]);
 
-function  Home () {
-      const hotels = [
-                {
-                    id: 1,
-                    nome: "Resort",
-                    cidade: "SP",
-                    avaliacao: 4.8,
-                    preco: 1200,
-                    imagem: hotel1,
-                },
+  useEffect(() => {
+    async function carregarHoteis() {
+      const dados = await buscarHoteis();
 
-            {
-                id: 2,
-                nome: "Pousada Cerra",
-                cidade: "Monte verde",
-                avaliacao: 4.7,
-                preco: 1000,
-                imagem: hotel2,
+      console.log(dados);
+      console.log(dados.results[0]);
 
-            } ,
+      // Por enquanto ainda não vamos setar na tela
+      setHotels(dados.results);
 
-            {
-              id: 3,
-                nome: "Pousada",
-                cidade: "Monte",
-                avaliacao: 4.7,
-                preco: 1000,
-                imagem: hotel2,
-            
-            },
-        ];
+      
+    }
 
-    return(
+    carregarHoteis();
+  }, []);
+
+  return (
     <main>
-        <section>
+      <section>
         <p>Olá!</p>
-        <h1>Encontre sua proxima hospedagem.</h1>
+        <h1>Encontre sua próxima hospedagem.</h1>
+        <p>Compare os preços entre milhares de hotéis.</p>
 
-        <p>Compare os preços entre milhares de hotéis. </p>
+        <SearchBar />
+      </section>
 
-        <SearchBar/>
-
-        </section>
-
-        <section>
-            <h3>Proximos de você:... </h3>
-
+      <section>
+        <h3>Próximos de você...</h3>
 
         <div className="hotel-list">
-    {hotels.map((hotel)=>(
-        <HotelCard
-        key={hotel.id}
-        id={hotel.id}
-        nome={hotel.nome}
-        cidade={hotel.cidade}
-        imagem={hotel.imagem}
-        avaliacao={hotel.avaliacao}
-        preco={hotel.preco}
+          {hotels.map((hotel) => (
+            <HotelCard
+              key={hotel.hotel_id}
+              id={hotel.hotel_id}
+              nome={hotel.hotel_name}
+              cidade={hotel.city}
+              imagem={hotel.main_photo_url}
+              avaliacao={hotel.review_score || 0}
+              preco={hotel.min_total_price || 0}
+            />
+          ))}
+        </div>
+      </section>
 
-        />
-        
-    ))}  
-    </div>   
-        </section>
+      <section>
+        <h3>Mais bem avaliados...</h3>
+        <div>...</div>
+      </section>
 
-        <section>
-            <h3>Mais bem avaliados:..</h3>
-            <div>...</div>
-        </section>
-
-        <section>
-            <h3>Promoções:...</h3>
-            <div>...</div>
-        </section>
-        </main>
-    );
+      <section>
+        <h3>Promoções...</h3>
+        <div>...</div>
+      </section>
+    </main>
+  );
 }
 
 export default Home;

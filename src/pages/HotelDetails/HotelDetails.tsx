@@ -1,6 +1,15 @@
+import { useParams } from "react-router-dom";
 function HotelDetails() {
+  const { id } = useParams();
+
   return (
-    <h1>Detalhes do hotel</h1>
+    <main>
+
+    <h1>Detalhes do hotel</h1> 
+    
+    <p>Id do hotel: {id}</p>
+
+    </main>
   );
 }
 
