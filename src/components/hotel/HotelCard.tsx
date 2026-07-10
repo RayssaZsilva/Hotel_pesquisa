@@ -8,6 +8,8 @@ type HotelCardProps = {
   imagem: string;
   avaliacao: number;
   preco: number;
+  checkin: string;
+  checkout: string;
 };
 
 function HotelCard({
@@ -17,32 +19,46 @@ function HotelCard({
   imagem,
   avaliacao,
   preco,
-  }: 
-
-HotelCardProps) {
+  checkin,
+  checkout,
+}: HotelCardProps) {
   const navigate = useNavigate();
 
-    function verDetalhes() {
-     
-      const logado = localStorage.getItem("isLogged");
+  function verDetalhes() {
+    const logado = localStorage.getItem("isLogged");
 
-      if (logado === "true"){
-        navigate(`/hotel/${id}`);
-        } else {
-          navigate("/login");
-        }
+    if (logado === "true") {
+      const params = new URLSearchParams({
+        checkin,
+        checkout,
+      });
+
+      navigate(`/hotel/${id}?${params.toString()}`);
+    } else {
+      navigate("/login");
     }
+  }
 
   return (
     <div className="hotel-card">
       <img src={imagem} alt={nome} />
+
       <h3>{nome}</h3>
+
       <p>{cidade}</p>
+
       <p>★ {avaliacao}</p>
-      <p>R$ {preco}</p>
-        <button onClick={verDetalhes}>
-          Ver detalhes
-        </button>
+
+      <p>
+        R$ {Number(preco).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </p>
+
+      <button type="button" onClick={verDetalhes}>
+        Ver detalhes
+      </button>
     </div>
   );
 }

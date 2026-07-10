@@ -11,7 +11,7 @@ function Login() {
 
       localStorage.setItem("isLogged", "true");
 
-      navigate("/hotel/1");
+      navigate("/");
     }
     
   return (

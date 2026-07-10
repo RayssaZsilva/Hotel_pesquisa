@@ -1,27 +1,75 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchBar from "../../components/common/SearchBar";
 import HotelCard from "../../components/hotel/HotelCard";
-import { buscarHoteis } from "../../services/hotelService";
+import {
+  buscarHoteis,
+  buscarLocal,
+} from "../../services/hotelService";
 import "./Home.css";
 
 function Home() {
   const [hotels, setHotels] = useState<any[]>([]);
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState("");
+  const [cidadeAtual, setCidadeAtual] = useState("São Paulo");
+  const [checkinAtual, setCheckinAtual] = useState("");
+  const [checkoutAtual, setCheckoutAtual] = useState("");
 
-  useEffect(() => {
-    async function carregarHoteis() {
-      const dados = await buscarHoteis();
+  async function pesquisarCidade(
+  nomeCidade: string,
+  checkin: string,
+  checkout: string
+) {
+  try {
+    setCarregando(true);
+    setErro("");
 
-      console.log(dados);
-      console.log(dados.results[0]);
+    const locais = await buscarLocal(nomeCidade);
 
-      // Por enquanto ainda não vamos setar na tela
-      setHotels(dados.results);
+    const localEscolhido = locais.find(
+      (local: any) => local.dest_type === "city"
+    );
 
-      
+    if (!localEscolhido) {
+      setHotels([]);
+      setErro("Cidade não encontrada.");
+      return;
     }
 
-    carregarHoteis();
-  }, []);
+    const dados = await buscarHoteis(
+      localEscolhido.dest_id,
+      localEscolhido.dest_type,
+      checkin,
+      checkout
+    );
+
+    const resultados = Array.isArray(dados?.results)
+      ? dados.results
+      : [];
+
+    setHotels(resultados);
+
+    setCidadeAtual(
+      localEscolhido.city_name ||
+      localEscolhido.name ||
+      nomeCidade
+    );
+
+    setCheckinAtual(checkin);
+    setCheckoutAtual(checkout);
+
+    if (resultados.length === 0) {
+      setErro("Nenhum hotel foi encontrado.");
+    }
+  } catch (error) {
+    console.error("Erro ao pesquisar hotéis:", error);
+
+    setHotels([]);
+    setErro("Não foi possível carregar os hotéis.");
+  } finally {
+    setCarregando(false);
+  }
+}
 
   return (
     <main>
@@ -30,24 +78,37 @@ function Home() {
         <h1>Encontre sua próxima hospedagem.</h1>
         <p>Compare os preços entre milhares de hotéis.</p>
 
-        <SearchBar />
+        <SearchBar onBuscar={pesquisarCidade} />
       </section>
 
       <section>
-        <h3>Próximos de você...</h3>
+        <h3>Hotéis em {cidadeAtual}</h3>
+
+        {carregando && <p>Carregando hotéis...</p>}
+        {erro && <p>{erro}</p>}
 
         <div className="hotel-list">
-          {hotels.map((hotel) => (
-            <HotelCard
-              key={hotel.hotel_id}
-              id={hotel.hotel_id}
-              nome={hotel.hotel_name}
-              cidade={hotel.city}
-              imagem={hotel.main_photo_url}
-              avaliacao={hotel.review_score || 0}
-              preco={hotel.min_total_price || 0}
-            />
-          ))}
+          {hotels
+            .filter((hotel) => hotel?.id)
+            .map((hotel) => (
+              <HotelCard
+                key={hotel.id}
+                id={hotel.id}
+                nome={hotel.name || "Hotel sem nome"}
+                cidade={
+                  hotel.wishlistName ||
+                  hotel.cityName ||
+                  cidadeAtual
+                }
+                imagem={hotel.photoMainUrl || ""}
+                avaliacao={hotel.reviewScore || 0}
+                preco={
+                  hotel.priceBreakdown?.grossPrice?.value || 0
+                }
+                checkin={checkinAtual}
+                checkout={checkoutAtual}
+              />
+            ))}
         </div>
       </section>
 
