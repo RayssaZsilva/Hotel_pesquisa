@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../components/common/searchBar.css";
+import "./searchBar.css";
 
 type SearchBarProps = {
   onBuscar: (
@@ -21,20 +21,13 @@ function SearchBar({ onBuscar }: SearchBarProps) {
   const [quartos, setQuartos] = useState(1);
 
   function enviarBusca() {
-    const cidadeLimpa = cidade.trim();
-
-    if (!cidadeLimpa || !checkin || !checkout) {
-      alert("Preencha a cidade, o check-in e o check-out.");
-      return;
-    }
-
-    if (checkout <= checkin) {
-      alert("O check-out precisa ser depois do check-in.");
+    if (!cidade || !checkin || !checkout) {
+      alert("Preencha cidade, check-in e check-out.");
       return;
     }
 
     onBuscar(
-      cidadeLimpa,
+      cidade,
       checkin,
       checkout,
       adultos,
@@ -45,52 +38,87 @@ function SearchBar({ onBuscar }: SearchBarProps) {
 
   return (
     <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Para onde você vai?"
-        value={cidade}
-        onChange={(event) => setCidade(event.target.value)}
-      />
 
-      <input
-        type="date"
-        value={checkin}
-        onChange={(event) => setCheckin(event.target.value)}
-      />
+      <div className="search-item cidade">
+        <label>Destino</label>
 
-      <input
-        type="date"
-        value={checkout}
-        onChange={(event) => setCheckout(event.target.value)}
-      />
+        <input
+          type="text"
+          placeholder="Ex: Gramado"
+          value={cidade}
+          onChange={(e) =>
+            setCidade(e.target.value)
+          }
+        />
+      </div>
 
-      <input
-        type="number"
-        min="1"
-        value={adultos}
-        onChange={(event) => setAdultos(Number(event.target.value))}
-        placeholder="Adultos"
-      />
+      <div className="search-item">
+        <label>Check-in</label>
 
-      <input
-        type="number"
-        min="0"
-        value={criancas}
-        onChange={(event) => setCriancas(Number(event.target.value))}
-        placeholder="Crianças"
-      />
+        <input
+          type="date"
+          value={checkin}
+          onChange={(e) =>
+            setCheckin(e.target.value)
+          }
+        />
+      </div>
 
-      <input
-        type="number"
-        min="1"
-        value={quartos}
-        onChange={(event) => setQuartos(Number(event.target.value))}
-        placeholder="Quartos"
-      />
+      <div className="search-item">
+        <label>Check-out</label>
 
-      <button type="button" onClick={enviarBusca}>
+        <input
+          type="date"
+          value={checkout}
+          onChange={(e) =>
+            setCheckout(e.target.value)
+          }
+        />
+      </div>
+
+      <div className="search-item pequeno">
+        <label>Adultos</label>
+
+        <input
+          type="number"
+          min="1"
+          value={adultos}
+          onChange={(e) =>
+            setAdultos(Number(e.target.value))
+          }
+        />
+      </div>
+
+      <div className="search-item pequeno">
+        <label>Crianças</label>
+
+        <input
+          type="number"
+          min="0"
+          value={criancas}
+          onChange={(e) =>
+            setCriancas(Number(e.target.value))
+          }
+        />
+      </div>
+
+      <div className="search-item pequeno">
+        <label>Quartos</label>
+
+        <input
+          type="number"
+          min="1"
+          value={quartos}
+          onChange={(e) =>
+            setQuartos(Number(e.target.value))
+          }
+        />
+      </div>
+
+      <button onClick={enviarBusca}>
         Buscar
       </button>
+
     </div>
   );
 }

@@ -152,31 +152,65 @@ function Home() {
   }
 
   return (
-    <main>
-      <section>
-        <p>Olá!</p>
+    <main className="home-page">
+      <section className="home-hero">
+        <div className="home-hero-overlay">
+          <div className="home-hero-content">
+            <span className="home-eyebrow">
+              Sua próxima viagem começa aqui
+            </span>
 
-        <h1>Encontre sua próxima hospedagem.</h1>
+            <h1>
+              Encontre hospedagens para viver momentos
+              inesquecíveis.
+            </h1>
 
-        <p>
-          Compare opções de hotéis para sua próxima
-          viagem.
-        </p>
+            <p>
+              Pesquise destinos, compare opções e encontre
+              o lugar ideal para sua próxima viagem.
+            </p>
 
-        <SearchBar onBuscar={pesquisarCidade} />
+            <div className="home-search-wrapper">
+              <SearchBar onBuscar={pesquisarCidade} />
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h3>Hotéis em {cidadeAtual}</h3>
+      <section className="home-section">
+        <div className="home-section-heading">
+          <div>
+            <span className="section-label">
+              Destino selecionado
+            </span>
 
-        {carregando && <p>Carregando hotéis...</p>}
+            <h2>Hotéis em {cidadeAtual}</h2>
+          </div>
 
-        {!carregando && erro && <p>{erro}</p>}
+          <p>
+            Confira opções de hospedagem para as datas
+            escolhidas.
+          </p>
+        </div>
+
+        {carregando && (
+          <div className="home-status">
+            Carregando hotéis...
+          </div>
+        )}
+
+        {!carregando && erro && (
+          <div className="home-status home-status-error">
+            {erro}
+          </div>
+        )}
 
         {!carregando &&
           !erro &&
           hotels.length === 0 && (
-            <p>Nenhum hotel disponível.</p>
+            <div className="home-status">
+              Nenhum hotel disponível.
+            </div>
           )}
 
         <div className="hotel-list">
@@ -184,20 +218,79 @@ function Home() {
         </div>
       </section>
 
-      <section>
-        <h3>Mais bem avaliados</h3>
+      <section className="home-section home-section-soft">
+        <div className="home-section-heading">
+          <div>
+            <span className="section-label">
+              Experiências especiais
+            </span>
+
+            <h2>Mais bem avaliados</h2>
+          </div>
+
+          <p>
+            Hospedagens com as melhores avaliações entre
+            os nossos destinos.
+          </p>
+        </div>
 
         <div className="hotel-list">
           {maisAvaliados.map(renderizarCard)}
         </div>
       </section>
 
-      <section>
-        <h3>Melhores preços</h3>
+      <section className="home-section">
+        <div className="home-section-heading">
+          <div>
+            <span className="section-label">
+              Economize na viagem
+            </span>
+
+            <h2>Melhores preços</h2>
+          </div>
+
+          <p>
+            Opções com ótimo custo-benefício para viajar
+            sem gastar demais.
+          </p>
+        </div>
 
         <div className="hotel-list">
           {promocoes.map(renderizarCard)}
         </div>
+      </section>
+
+      <section className="home-benefits">
+        <article>
+          <span>🔍</span>
+          <div>
+            <h3>Busca simples</h3>
+            <p>
+              Encontre hotéis por cidade de forma rápida.
+            </p>
+          </div>
+        </article>
+
+        <article>
+          <span>❤️</span>
+          <div>
+            <h3>Salve seus favoritos</h3>
+            <p>
+              Guarde as hospedagens que mais chamaram sua
+              atenção.
+            </p>
+          </div>
+        </article>
+
+        <article>
+          <span>🗺️</span>
+          <div>
+            <h3>Veja a localização</h3>
+            <p>
+              Confira cada hospedagem diretamente no mapa.
+            </p>
+          </div>
+        </article>
       </section>
     </main>
   );
