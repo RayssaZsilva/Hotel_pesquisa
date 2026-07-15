@@ -1,75 +1,151 @@
-# React + TypeScript + Vite
+# 🏨 Achô
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Preview](./public/preview.png)
 
-Currently, two official plugins are available:
+> **Achou. Gostou. Reservou.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+O **Achô** é uma plataforma de busca de hospedagens desenvolvida para facilitar a pesquisa de hotéis de forma simples, rápida e intuitiva.
 
-## React Compiler
+Este projeto foi desenvolvido como parte do meu portfólio em Desenvolvimento Front-end, utilizando React, TypeScript e Vite.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📸 Preview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+> Adicione aqui uma captura de tela da página inicial.
 
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+/public/preview.png
 ```
+
+ou um GIF da aplicação.
+
+---
+
+## ✨ Funcionalidades
+
+- 🔍 Pesquisa de hotéis por cidade
+- 🏨 Visualização de detalhes da hospedagem
+- ❤️ Sistema de favoritos
+- 👤 Login e cadastro
+- 📍 Mapa com localização do hotel
+- 👥 Perfil do usuário
+- 💾 Persistência de dados com LocalStorage
+- 📱 Layout responsivo
+
+---
+
+## 🚀 Tecnologias
+
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- React Leaflet
+- CSS3
+- LocalStorage
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+src
+├── components
+├── pages
+│   ├── Home
+│   ├── Login
+│   ├── Cadastro
+│   ├── Perfil
+│   ├── Favoritos
+│   └── HotelDetails
+├── services
+├── data
+├── assets
+└── App.tsx
+```
+
+---
+
+## ▶️ Como executar
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/SEU-USUARIO/acho.git
+```
+
+Entre na pasta:
+
+```bash
+cd acho
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Execute o projeto:
+
+```bash
+npm run dev
+```
+
+---
+
+## 💾 Persistência de dados
+
+O projeto utiliza **LocalStorage** para armazenar:
+
+- Nome do usuário
+- E-mail
+- Login
+- Favoritos
+- Última cidade pesquisada
+- Data de criação da conta
+
+---
+
+## 📌 Roadmap
+
+### ✅ Versão 1.0
+
+- [x] Home
+- [x] Pesquisa de hotéis
+- [x] Cards
+- [x] Página de detalhes
+- [x] Login
+- [x] Cadastro
+- [x] Perfil
+- [x] Favoritos
+- [x] LocalStorage
+- [x] Responsividade
+
+### 🔜 Versão 2.0
+
+- [ ] API de hotéis
+- [ ] Comparador de preços
+- [ ] Filtros avançados
+- [ ] Sistema de reservas
+- [ ] Autenticação com backend
+- [ ] Banco de dados
+- [ ] Histórico de reservas
+
+---
+
+## 👩‍💻 Desenvolvedora
+
+**Rayssa Cardoso**
+
+Estudante de Ciência da Computação, apaixonada por tecnologia e desenvolvimento de software.
+
+- GitHub: https://github.com/SEU-USUARIO
+- LinkedIn: https://linkedin.com/in/SEU-LINK
+
+---
+
+## 📄 Licença
+
+Este projeto foi desenvolvido para fins de estudo e composição de portfólio.
