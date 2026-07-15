@@ -1,24 +1,12 @@
 # 🏨 Achô
 
-![Preview](./public/preview.png)
+![Preview](./public/preview.png.png)
 
 > **Achou. Gostou. Reservou.**
 
 O **Achô** é uma plataforma de busca de hospedagens desenvolvida para facilitar a pesquisa de hotéis de forma simples, rápida e intuitiva.
 
 Este projeto foi desenvolvido como parte do meu portfólio em Desenvolvimento Front-end, utilizando React, TypeScript e Vite.
-
----
-
-## 📸 Preview
-
-> Adicione aqui uma captura de tela da página inicial.
-
-```
-/public/preview.png
-```
-
-ou um GIF da aplicação.
 
 ---
 
